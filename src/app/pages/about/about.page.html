@@ -13,21 +13,38 @@
     </ion-toolbar>
   </ion-header>
   <ion-card>
-    <ion-card-title>
-      Development
-    </ion-card-title>
+    <ion-card-header>
+      <ion-card-title>
+        Development
+      </ion-card-title>
+    </ion-card-header>
     <ion-card-content>
       <ion-label>
         This app was development by
         <a href="https://github.com/luizhfraraujo">Luiz Henrique Araújo</a>
         using Ionic 5 and the rest api development by
-        <a href="https://github.com/ExpDev07/coronavirus-tracker-api"
-          >ExpDev07</a
-        >. All the source code can be found in
-        <a href="https://github.com/luizhfraraujo/ionic-coronavirus-tracker"
-          >GitHub</a
-        >.
+        <a href="https://github.com/ExpDev07/coronavirus-tracker-api">ExpDev07</a>. All the source code can be found in
+        <a href="https://github.com/luizhfraraujo/ionic-coronavirus-tracker">GitHub</a>.
       </ion-label>
     </ion-card-content>
   </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Settings
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item lines="none">
+          <ion-icon slot="start" name="moon"></ion-icon>
+          <ion-label>
+            Toggle Dark Theme
+          </ion-label>
+          <ion-toggle id="themeToggle" slot="end" [(ngModel)]="darkTheme" (ionChange)="toggle($event)"></ion-toggle>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
