@@ -14,7 +14,7 @@
 
 * Ionic 5
 * Angular
-* Lefleat
+* Leaflet
 * Chart.JS
 * Ng2-Charts
 
