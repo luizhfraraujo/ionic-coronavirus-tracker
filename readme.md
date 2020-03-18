@@ -7,6 +7,8 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/luizhfraraujo/ionic-coronavirus-tracker)
 ![GitHub issues](https://img.shields.io/github/issues/luizhfraraujo/ionic-coronavirus-tracker)
 
+<p><a href=""> Click here do access the website</p>
+
 <h6>Libraries</h6>
 <ul>
 <li>Ionic 5</li>
@@ -17,4 +19,5 @@
 <h6>Articles Based to development</h6>
 <ul>
 <li>https://devdactic.com/ionic-4-chartjs/</li>
+<li>https://medium.com/@bviveksingh96/using-leaflet-with-ionic-4-f7acbd1c2464</li>
 </ul>

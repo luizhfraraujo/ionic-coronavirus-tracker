@@ -42,7 +42,7 @@ export class HomePage implements OnInit {
       mode: "xy"
     }
   };
-  deathChartColors: Color[] = [
+  deathsChartColors: Color[] = [
     {
       borderColor: "#000000",
       backgroundColor: "#ff0000"
@@ -111,7 +111,7 @@ export class HomePage implements OnInit {
     });
   }
 
-  search() {
+  search(event) {
     if (this.searchLocation !== "") {
       this.loading = true;
       this.api.getLocation(this.searchLocation).subscribe(data => {

@@ -45,16 +45,16 @@ export class MapPage {
         )
           .addTo(this.map)
           .bindPopup(
-            `<b>País</b>: ${location.country} <br/>
+            `<b>Country</b>: ${location.country} <br/>
             ${
               location.province
-                ? "<b>Província</b>: " + location.province + "<br/>"
+                ? "<b>Province</b>: " + location.province + "<br/>"
                 : ""
             }
-            <b>Últimos dados:</b> <br/>
-            - Confirmados: ${location.latest.confirmed}<br/>
-            - Curados: ${location.latest.recovered}<br/>
-            - Mortes: ${location.latest.deaths}<br/>
+            <b>Latest data:</b> <br/>
+            - Confirmed: ${location.latest.confirmed}<br/>
+            - Recovered: ${location.latest.recovered}<br/>
+            - Deaths: ${location.latest.deaths}<br/>
           `
           );
       });

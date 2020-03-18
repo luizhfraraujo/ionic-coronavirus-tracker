@@ -1,48 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Mapa
+      Map
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-refresher
-    slot="fixed"
-    (ionRefresh)="refresh($event)"
-    pullingIcon="arrow-dropdown"
-    pullingText="Atualizar"
-    refreshingSpinner="circles"
-    refreshingText="Atualizando..."
-  >
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher> -->
 
   <div id="mapId" style="height:100%; width: 100%;"></div>
 
   <div>
-    <!-- <ion-card>
-      <ion-card-content>
-        <ion-list>
-          <ion-item *ngFor="let location of locations">
-            <ion-label>
-              {{location.province != "" ? location.province : location.country}}
-            </ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-card-content>
-    </ion-card> -->
   </div>
-  <div *ngIf="loading">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title
-          ><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-        </ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
-      </ion-card-content>
-    </ion-card>
-  </div>
+  
 </ion-content>
