@@ -1,0 +1,7 @@
+{
+  "name": "ionic-coronavirus-tracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
