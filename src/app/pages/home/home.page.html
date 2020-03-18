@@ -1,0 +1,163 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      COVID-19 Tracker
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="refresh($event)"
+    pullingIcon="arrow-dropdown"
+    pullingText="Atualizar"
+    refreshingSpinner="circles"
+    refreshingText="Atualizando..."
+  >
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">COVID-19 Tracker</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div *ngIf="!loading">
+    <ion-item>
+      <ion-label>Select a country</ion-label>
+      <ion-select [(ngModel)]="searchLocation" (ionChange)="search($event)">
+        <ion-select-option value="">All</ion-select-option>
+        <ion-select-option
+          *ngFor="let location of locations"
+          [value]="location.id"
+          >{{location.province != "" ? location.province :
+          location.country}}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <div *ngIf="!location">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Confirmed</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-label>Total: {{latest?.confirmed}}</ion-label>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Recovered</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-label>Total: {{latest?.recovered}}</ion-label>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Deaths</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-label>Total: {{latest?.deaths}}</ion-label>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <div *ngIf="location">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Confirmed</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-label>Total: {{location?.latest?.confirmed}}</ion-label>
+          <br />
+          <br />
+          <canvas
+            baseChart height="200px"
+            [datasets]="confirmedChartData"
+            [labels]="confirmedChartLabels"
+            [options]="confirmedChartOptions"
+            [colors]="confirmedChartColors"
+            [legend]="showLegend"
+            [chartType]="chartType"
+          >
+          </canvas>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Recovered</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-label>Total: {{location?.latest?.recovered}}</ion-label>
+          <br />
+          <br />
+          <canvas
+            baseChart
+            baseChart height="200px"
+            [datasets]="recoveredChartData"
+            [labels]="recoveredChartLabels"
+            [options]="recoveredChartOptions"
+            [colors]="recoveredChartColors"
+            [legend]="showLegend"
+            [chartType]="chartType"
+          >
+          </canvas>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Deaths</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-label>Total: {{location?.latest?.deaths}}</ion-label>
+          <br />
+          <br />
+          <canvas
+            baseChart
+            baseChart height="200px"
+            [datasets]="deathsChartData"
+            [labels]="deathsChartLabels"
+            [options]="deathsChartOptions"
+            [colors]="deathsChartColors"
+            [legend]="showLegend"
+            [chartType]="chartType"
+          >
+          </canvas>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+  <div *ngIf="loading">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title
+          ><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title
+          ><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title
+          ><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
