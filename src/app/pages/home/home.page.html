@@ -30,8 +30,7 @@
         <ion-select-option
           *ngFor="let location of locations"
           [value]="location.id"
-          >{{location.province != "" ? location.province :
-          location.country}}</ion-select-option
+          >{{location.name}}</ion-select-option
         >
       </ion-select>
     </ion-item>

@@ -93,14 +93,33 @@ export class HomePage implements OnInit {
   chartType = "line";
   showLegend = false;
 
-  constructor(private toast: ToastController, private api: ApiService) {}
+  constructor(private toast: ToastController, private api: ApiService) { }
 
   ngOnInit() {
     this.loadLatest();
     this.loading = true;
     this.api.getLocations().subscribe(data => {
       this.loading = false;
-      this.locations = data;
+      this.locations = [];
+      data.forEach(element => {
+        this.locations.push({
+          id: element.id, name:
+            element.province !== "" ? element.province :
+              element.country
+        });
+      });
+      this.locations.sort((a, b) => {
+        const locationA = a.name.toUpperCase();
+        const locationB = b.name.toUpperCase();
+
+        let comparison = 0;
+        if (locationA > locationB) {
+          comparison = 1;
+        } else if (locationA < locationB) {
+          comparison = -1;
+        }
+        return comparison;
+      });
     });
   }
 
@@ -157,7 +176,7 @@ export class HomePage implements OnInit {
           i % rest === 1 ||
           i === 0 ||
           i ===
-            Object.keys(this.location.timelines.confirmed.timeline).length - 1
+          Object.keys(this.location.timelines.confirmed.timeline).length - 1
         ) {
           this.confirmedChartLabels.push(key.substring(0, 10));
           this.confirmedChartData[0].data.push(
@@ -173,7 +192,7 @@ export class HomePage implements OnInit {
           i % rest === 1 ||
           i === 0 ||
           i ===
-            Object.keys(this.location.timelines.recovered.timeline).length - 1
+          Object.keys(this.location.timelines.recovered.timeline).length - 1
         ) {
           this.recoveredChartLabels.push(key.substring(0, 10));
           this.recoveredChartData[0].data.push(
@@ -227,4 +246,20 @@ export class HomePage implements OnInit {
     });
     toast.present();
   }
+
+  // compare(a, b) {
+  //   // Use toUpperCase() to ignore character casing
+  //   const bandA = a.band.toUpperCase();
+  //   const bandB = b.band.toUpperCase();
+
+  //   let comparison = 0;
+  //   if (bandA > bandB) {
+  //     comparison = 1;
+  //   } else if (bandA < bandB) {
+  //     comparison = -1;
+  //   }
+  //   return comparison;
+  // }
+
+  // toggleDarkTheme(prefersDark.matches);
 }
