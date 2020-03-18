@@ -29,6 +29,10 @@
 * `ionic serve`
 * Visit your app at [http://localhost:8100](http://localhost:8100).
 
+## Thanks
+
+Thanks to <a href="https://github.com/ExpDev07/coronavirus-tracker-api">ExpDev07</a> for the api.
+
 ## Articles Based to development
 <ul>
 <li>https://devdactic.com/ionic-4-chartjs/</li>
