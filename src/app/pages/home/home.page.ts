@@ -3,6 +3,7 @@ import { ApiService } from "../../services/api.service";
 import { ToastController } from "@ionic/angular";
 import { ChartDataSets } from "chart.js";
 import { Label, Color } from "ng2-charts";
+import { DatabaseService } from "../../services/database.service";
 declare var Chart: any;
 
 @Component({
@@ -12,7 +13,7 @@ declare var Chart: any;
 })
 export class HomePage implements OnInit {
   latest: any;
-  loading: boolean = true;
+  loading: boolean = false;
   locations = [];
   location: any;
   searchLocation: string = "";
@@ -93,19 +94,53 @@ export class HomePage implements OnInit {
   chartType = "line";
   showLegend = false;
 
-  constructor(private toast: ToastController, private api: ApiService) { }
+  constructor(
+    private toast: ToastController,
+    private database: DatabaseService,
+    private api: ApiService
+  ) {}
 
   ngOnInit() {
     this.loadLatest();
+    this.loading = true;
+    this.database.getLocations().then(
+      data => {
+        if (data) {
+          this.locations = data;
+          this.loading = false;
+        } else {
+          this.loadLocations();
+          this.loading = false;
+        }
+      },
+      error => {
+        this.loading = false;
+      }
+    );
+
+    this.database.getSetting("defaultLocation").then(
+      data => {
+        if (data) {
+          console.log(data);
+          this.searchLocation = data;
+          this.search();
+        }
+      },
+      error => {
+        this.loading = false;
+      }
+    );
+  }
+
+  loadLocations() {
     this.loading = true;
     this.api.getLocations().subscribe(data => {
       this.loading = false;
       this.locations = [];
       data.forEach(element => {
         this.locations.push({
-          id: element.id, name:
-            element.province !== "" ? element.province :
-              element.country
+          id: element.id,
+          name: element.province !== "" ? element.province : element.country
         });
       });
       this.locations.sort((a, b) => {
@@ -120,6 +155,8 @@ export class HomePage implements OnInit {
         }
         return comparison;
       });
+      console.log(this.locations);
+      this.database.setLocations(this.locations);
     });
   }
 
@@ -130,7 +167,7 @@ export class HomePage implements OnInit {
     });
   }
 
-  search(event) {
+  search() {
     if (this.searchLocation !== "") {
       this.loading = true;
       this.api.getLocation(this.searchLocation).subscribe(data => {
@@ -139,6 +176,7 @@ export class HomePage implements OnInit {
         this.renderCharts();
       });
     } else {
+      this.loading = false;
       this.location = null;
       this.loadLatest;
     }
@@ -176,7 +214,7 @@ export class HomePage implements OnInit {
           i % rest === 1 ||
           i === 0 ||
           i ===
-          Object.keys(this.location.timelines.confirmed.timeline).length - 1
+            Object.keys(this.location.timelines.confirmed.timeline).length - 1
         ) {
           this.confirmedChartLabels.push(key.substring(0, 10));
           this.confirmedChartData[0].data.push(
@@ -192,7 +230,7 @@ export class HomePage implements OnInit {
           i % rest === 1 ||
           i === 0 ||
           i ===
-          Object.keys(this.location.timelines.recovered.timeline).length - 1
+            Object.keys(this.location.timelines.recovered.timeline).length - 1
         ) {
           this.recoveredChartLabels.push(key.substring(0, 10));
           this.recoveredChartData[0].data.push(

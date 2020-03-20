@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Settings
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Settings</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list lines="none">
+    <ion-item>
+      <ion-label>Default location</ion-label>
+      <ion-select [(ngModel)]="defaultLocation" (ionChange)="setDefaultLocation($event)">
+        <ion-select-option value="">All</ion-select-option>
+        <ion-select-option *ngFor="let location of locations" [value]="location.id">{{location.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>

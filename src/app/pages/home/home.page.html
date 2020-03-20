@@ -20,7 +20,7 @@
   <div *ngIf="!loading">
     <ion-item>
       <ion-label>Select a country</ion-label>
-      <ion-select [(ngModel)]="searchLocation" (ionChange)="search($event)">
+      <ion-select [(ngModel)]="searchLocation" (ionChange)="search()">
         <ion-select-option value="">All</ion-select-option>
         <ion-select-option *ngFor="let location of locations" [value]="location.id">{{location.name}}
         </ion-select-option>

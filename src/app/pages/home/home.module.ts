@@ -9,6 +9,7 @@ import { HomePageRoutingModule } from "./home-routing.module";
 import { HomePage } from "./home.page";
 import { ApiService } from "../../services/api.service";
 import { ChartsModule } from "ng2-charts";
+import { DatabaseService } from "../../services/database.service";
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { ChartsModule } from "ng2-charts";
     HomePageRoutingModule
   ],
   declarations: [HomePage],
-  providers: [ApiService]
+  providers: [ApiService, DatabaseService]
 })
 export class HomePageModule {}
